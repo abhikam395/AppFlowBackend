@@ -39,13 +39,13 @@ module.exports.loginValidation = function(){
     return function(req, res, next){
         const {email, password} = req.body;
         let error = {};
-        let emailParts = email.split('@');
-        let emailSuffix = emailParts[1];
+        let emailParts = email != undefined ? email.split('@') : [];
+        let emailSuffix = emailParts.length == 2 ? emailParts[1] : null;
 
         if(email === undefined || emailSuffix != 'gmail.com')
             error.email = email === undefined ? "Email is empty" : "Invalid email"
         if(password === undefined || password.length < 3)
-            error.username = username === undefined ? "Username is empty" : 
+            error.password = password === undefined ? "Password is empty" : 
                "Password must be more than 2 characters"
 
         if(Object.keys(error).length != 0){
